@@ -15,5 +15,8 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tincann/homesec/issues"
+  },
+  "dependencies": {
+    "pi-gpio": "0.0.6"
   }
 }
