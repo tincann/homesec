@@ -6,6 +6,6 @@ var rs = new ReedSwitch(7, 500);
 
 TelegramAPI.connect(function(connection){
 	rs.on('open', function(){	
-	   connection.send('HomeSec', 'HIJ WERKT!' + +new Date);
+	   connection.send('HomeSec', 'Inbreker alert ' + new Date);
 	});
 });
