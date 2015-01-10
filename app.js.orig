@@ -5,7 +5,14 @@ var TelegramAPI = require('./telegram-cli-wrapper/lib/telegram-api.js'),
 var rs = new ReedSwitch(7, 500);
 
 TelegramAPI.connect(function(connection){
+<<<<<<< HEAD
 	rs.on('open', function(){	
 	   connection.send('HomeSec', 'HIJ WERKT!' + +new Date);
 	});
 });
+=======
+	rs.on('open', function(){
+		connection.send('Morten', 'HIJ WERKT!' + +new Date);
+	});
+});
+>>>>>>> ea1bd49c85c961a9553e93275da87660be4989a5

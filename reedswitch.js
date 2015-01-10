@@ -11,7 +11,7 @@ function ReedSwitch(pinNumber, pollInterval){
 	this.pinNumber = pinNumber;
 	this.pollInterval = pollInterval;
 	this.init();
-	this.state 
+	this.state = STATE.CLOSED;
 }
 
 util.inherits(ReedSwitch, events.EventEmitter);
