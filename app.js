@@ -1,6 +1,6 @@
 var TelegramAPI = require('./telegram-cli-wrapper/lib/telegram-api.js'),
 	io = require('pi-gpio'),
-	ReedSwitch = require('./reedswitch.js');
+	ReedSwitch = require('./lib/reedswitch.js');
 
 var rs = new ReedSwitch(7, 500);
 
