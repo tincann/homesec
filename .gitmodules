@@ -1,3 +1,6 @@
 [submodule "telegram-cli-wrapper"]
 	path = telegram-cli-wrapper
 	url = git@github.com:tincann/telegram-cli-wrapper.git
+[submodule "fswebcam-wrapper"]
+	path = fswebcam-wrapper
+	url = git@github.com:tincann/fswebcam-wrapper.git
