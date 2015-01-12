@@ -1,8 +1,6 @@
-var ReedSwitch = require('./lib/ReedSwitch.js'),
-	TelegramMQ = require('./lib/TelegramMQ.js'),
+var TelegramMQ = require('./lib/TelegramMQ.js'),
 	TelegramWrapper = require('./lib/TelegramWrapper.js'),
-	Camera = require('./fswebcam-wrapper/lib/fswebcam-wrapper.js'),
-	moment = require('moment');
+	Camera = require('./fswebcam-wrapper/lib/fswebcam-wrapper.js');
 
 console.log = (function(){
 	var log = console.log;
@@ -14,7 +12,6 @@ console.log = (function(){
 
 var tQueue = new TelegramMQ();
 
-var rs = new ReedSwitch(7, 500);
 var hallwayCam = new Camera({
     device: '/dev/video0',
     rotate: 90,
@@ -22,17 +19,20 @@ var hallwayCam = new Camera({
     subtitle: 'Hallway#1'
 });
 
+console.log('open', new Date);
+var imgPath = __dirname + '/snapshots/' + new Date + '.jpg';
+
 tQueue.on('message', function(message, complete){
 	TelegramWrapper.handleMessage(message, complete);
 });
 
-rs.on('open', function(){
-	console.log('open');
+setInterval(function(){
 	tQueue.send({ type: 'message', text: 'Inbreker alert ' + new Date });
-	var imgPath = __dirname + '/snapshots/' + moment().format('YYYY-MM-DD HH-mm-ss [UTC]') + '.jpg';
+
 	hallwayCam.capture(imgPath, function(){
 		tQueue.send({ type: 'image', path: imgPath});
 	});
-});
+
+}, 10000);
 
 tQueue.start();
