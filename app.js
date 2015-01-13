@@ -22,8 +22,8 @@ var hallwayCam = new Camera({
     subtitle: 'Hallway#1'
 });
 
-tQueue.on('message', function(message, complete){
-	TelegramWrapper.handleMessage(message, complete);
+tQueue.on('message', function(message){
+	TelegramWrapper.handleMessage(message);
 });
 
 rs.on('open', function(){
@@ -31,8 +31,15 @@ rs.on('open', function(){
 	tQueue.send({ type: 'message', text: 'Inbreker alert ' + new Date });
 	var imgPath = __dirname + '/snapshots/' + moment().format('YYYY-MM-DD HH-mm-ss [UTC]') + '.jpg';
 	hallwayCam.capture(imgPath, function(){
-		tQueue.send({ type: 'image', path: imgPath});
+		tQueue.send({ type: 'image', path: imgPath}, function(err, res){
+			console.log(err, res);
+		});
 	});
 });
 
 tQueue.start();
+
+process.on('uncaughtException', function(err) {
+  console.log('Uncaught exception: ' + err);
+  console.log(err.stack);
+});
