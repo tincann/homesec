@@ -14,6 +14,9 @@ setTimeout(function(){
 	monitor.doorSensor.emit('open');
 }, 5000);
 
+setTimeout(function(){
+	monitor.doorSensor.emit('closed');
+}, 10000);
 
 process.on('uncaughtException', function(err) {
   console.log('Uncaught exception: ' + err);
