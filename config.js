@@ -1,5 +1,6 @@
 var config = { 
-    telegram_group: 'HomeSec'
+    telegram_group: 'HomeSec',
+    snapshot_path: __dirname + '/snapshots/'
 };
 
 exports.get = function(key){
