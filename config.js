@@ -1,6 +1,13 @@
 var config = { 
     telegram_group: 'HomeSec',
-    snapshot_path: __dirname + '/snapshots/'
+    snapshot_path:  __dirname + '/snapshots/',
+    pinger: {
+        interval:   5000,
+        hostmap: {
+            //name : 'ipadress'
+            
+        }
+    }
 };
 
 exports.get = function(key){

@@ -1,4 +1,9 @@
-var monitor = new (require('./lib/HallMonitor.js'));
+var TelegramMQ = new (require('./lib/TelegramMQ.js'));
+    monitor = new (require('./lib/HallMonitor.js'))(TelegramMQ),
+    config = require('./config.js'),
+    pinger = new (require('./lib/Pinger.js'))(config.get('pinger')),
+    tw = require('./lib/TelegramWrapper.js');
+
 
 console.log = (function(){
 	var log = console.log;
@@ -21,4 +26,10 @@ setTimeout(function(){
 process.on('uncaughtException', function(err) {
   console.log('Uncaught exception: ' + err);
   console.log(err.stack);
+});
+
+pinger.on('change', function (info) {
+    var message = info.name + ': ' + info.action;
+    console.log(message);
+    // MQ.send({ type: 'message', text: message});
 });
