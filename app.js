@@ -31,7 +31,7 @@ process.on('uncaughtException', function(err) {
 pinger.on('change', function (info) {
     var message = info.name + ': ' + info.action;
     // console.log(message);
-    MQ.send({ type: 'message', text: message});
+    TelegramMQ.send({ type: 'message', text: message});
 });
 
 pinger.start();
