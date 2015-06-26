@@ -2,7 +2,8 @@ var TelegramMQ = new (require('./lib/TelegramMQ.js'));
     monitor = new (require('./lib/HallMonitor.js'))(TelegramMQ),
     config = require('./config.js'),
     pinger = new (require('./lib/Pinger.js'))(config.get('pinger')),
-    tw = require('./lib/TelegramWrapper.js');
+    tw = require('./lib/TelegramWrapper.js'),
+    tts = new require('./lib/TTS.js');
 
 
 console.log = (function(){
@@ -32,6 +33,15 @@ pinger.on('change', function (info) {
     var message = info.name + ': ' + info.action;
     // console.log(message);
     TelegramMQ.send({ type: 'message', text: message});
+
+    switch(info.action){
+      case 'enter':
+        tts.sayall(info.name + ' is almost home.');
+        break;
+      case 'leave':
+        tts.sayall(info.name + ' has left the building.');
+        break;
+    }
 });
 
 pinger.start();
