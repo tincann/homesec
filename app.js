@@ -34,13 +34,16 @@ pinger.on('change', function (info) {
     // console.log(message);
     TelegramMQ.send({ type: 'message', text: message});
 
-    switch(info.action){
-      case 'enter':
-        tts.sayall(info.name + ' is almost home.');
-        break;
-      case 'leave':
-        tts.sayall(info.name + ' has left the building.');
-        break;
+    var hour = new Date().getHours();
+    if(hour >= 8 && hour <= 22){
+      switch(info.action){
+        case 'enter':
+          tts.sayall(info.name + ' is almost home.');
+          break;
+        case 'leave':
+          tts.sayall(info.name + ' has left the building.');
+          break;
+      }
     }
 });
 
