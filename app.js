@@ -3,7 +3,7 @@ var TelegramMQ = new (require('./lib/TelegramMQ.js'));
     config = require('./config.js'),
     pinger = new (require('./lib/Pinger.js'))(config.get('pinger')),
     tw = require('./lib/TelegramWrapper.js'),
-    tts = new require('./lib/TTS.js');
+    tts = new (require('./lib/TTS.js'))();
 
 
 console.log = (function(){
