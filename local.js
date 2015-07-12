@@ -17,6 +17,7 @@ var imgPath = __dirname + '/snapshots/' + new Date + '.jpg';
 var doorSensor = new ReedSwitch(config.get('doorsensor').pin_number, 100);
 var camera = new Camera(config.get('camera'), __dirname + '/' + config.get('snapshot_path'));
 var monitor = new (require('./lib/HallMonitor.js'))(mq, doorSensor, camera);
+monitor.start();
 
 var readline = require('readline');
 var rl = readline.createInterface({
