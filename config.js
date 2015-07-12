@@ -6,8 +6,7 @@ var config = {
     pinger: {
         interval:   5000,
         hostmap: {
-            //name : 'ipaddress'
-            
+            //name : 'ipaddress'       
         }
     },
     camera: {

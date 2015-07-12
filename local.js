@@ -1,6 +1,6 @@
 var TelegramMQ = require('./lib/TelegramMQ.js'),
-	TelegramWrapper = require('./lib/TelegramWrapper.js'),
-	Camera = require('./fswebcam-wrapper/lib/fswebcam-wrapper.js');
+	Camera = require('./fswebcam-wrapper/lib/fswebcam-wrapper.js'),
+    config = require('./config-local.js');
 
 console.log = (function(){
 	var log = console.log;
@@ -11,28 +11,22 @@ console.log = (function(){
 })();
 
 var tQueue = new TelegramMQ();
-
-var hallwayCam = new Camera({
-    device: '/dev/video0',
-    rotate: 90,
-    title: 'HomeSec',
-    subtitle: 'Hallway#1'
-});
-
-console.log('open', new Date);
 var imgPath = __dirname + '/snapshots/' + new Date + '.jpg';
 
-tQueue.on('message', function(message, complete){
-	TelegramWrapper.handleMessage(message, complete);
+
+var readline = require('readline');
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
 
-setInterval(function(){
-	tQueue.send({ type: 'message', text: 'Inbreker alert ' + new Date });
-
-	hallwayCam.capture(imgPath, function(){
-		tQueue.send({ type: 'image', path: imgPath});
-	});
-
-}, 10000);
-
-tQueue.start();
+rl.on('line', function(line){
+    switch(line){
+        case 'open':
+            
+            break;
+        case 'close':
+            break;
+           
+    }
+});
