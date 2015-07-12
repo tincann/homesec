@@ -1,23 +1,12 @@
-var config = { 
-    telegram: {
-        api_key: ''
-    }
-    snapshot_path:  __dirname + '/snapshots/',
-    pinger: {
-        interval:   5000,
-        hostmap: {
-            //name : 'ipaddress'       
-        }
-    },
-    camera: {
-        device: '/dev/video0',
-        rotate: 90,
-        title: 'HomeSec',
-        subtitle: 'Hallway#1',
-        timestamp: '%Y-%m-%d %H:%M:%S (%Z)'
-    }
-};
+var fs = require('fs');
+var filePath = './config.json';
+if(process.env.debug){
+    console.log('using config-test.json');
+    filePath = './config-test.json';
+}
 
+var config = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+console.log(config);
 exports.get = function(key){
     var value;
     if((value = config[key]) !== undefined){
@@ -25,4 +14,4 @@ exports.get = function(key){
     }
 
     throw new Error('Key ' + key + ' not defined');
-}
+};

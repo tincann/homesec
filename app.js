@@ -1,9 +1,14 @@
-var TelegramMQ = new (require('./lib/TelegramMQ.js'));
-    monitor = new (require('./lib/HallMonitor.js'))(TelegramMQ),
+var TelegramMQ = new (require('./lib/TelegramMQ.js')),
     config = require('./config.js'),
     pinger = new (require('./lib/Pinger.js'))(config.get('pinger')),
-    tts = new (require('./lib/TTS.js'))();
+    tts = new (require('./lib/TTS.js'))(),
+    ReedSwitch = require('./ReedSwitch.js');
 
+
+var doorSensor = new ReedSwitch(config.get('doorsensor.pin_number'), 100);
+doorSensor.init();
+var camera = new Camera(config.get('camera'), __dirname + config.get('snapshot_path'));
+var monitor = new (require('./lib/HallMonitor.js'))(TelegramMQ, doorSensor, camera);
 
 console.log = (function(){
 	var log = console.log;
@@ -16,11 +21,11 @@ console.log = (function(){
 monitor.start();
 
 setTimeout(function(){
-	monitor.doorSensor.emit('open');
+	doorSensor.emit('open');
 }, 5000);
 
 setTimeout(function(){
-	monitor.doorSensor.emit('closed');
+	doorSensor.emit('closed');
 }, 10000);
 
 process.on('uncaughtException', function(err) {

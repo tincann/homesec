@@ -1,6 +1,7 @@
 var TelegramMQ = require('./lib/TelegramMQ.js'),
-	Camera = require('./fswebcam-wrapper/lib/fswebcam-wrapper.js'),
-    config = require('./config-local.js');
+	Camera = require('./fswebcam-wrapper/lib/Camera.js'),
+    config = require('./config.js'),
+    ReedSwitch = require('./lib/ReedSwitch.js');
 
 console.log = (function(){
 	var log = console.log;
@@ -10,9 +11,12 @@ console.log = (function(){
 	};
 })();
 
-var tQueue = new TelegramMQ();
+var mq = new TelegramMQ();
 var imgPath = __dirname + '/snapshots/' + new Date + '.jpg';
 
+var doorSensor = new ReedSwitch(config.get('doorsensor').pin_number, 100);
+var camera = new Camera(config.get('camera'), __dirname + '/' + config.get('snapshot_path'));
+var monitor = new (require('./lib/HallMonitor.js'))(mq, doorSensor, camera);
 
 var readline = require('readline');
 var rl = readline.createInterface({
@@ -23,10 +27,10 @@ var rl = readline.createInterface({
 rl.on('line', function(line){
     switch(line){
         case 'open':
-            
+            doorSensor.emit('open');
             break;
         case 'close':
+            doorSensor.emit('closed');
             break;
-           
     }
 });
