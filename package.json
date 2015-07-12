@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "moment": "^2.9.0",
+    "node-telegram-bot-api": "^0.8.4",
     "pi-gpio": "0.0.7",
     "ping": "^0.1.9",
     "rsmq": "^0.3.9"

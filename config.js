@@ -1,12 +1,21 @@
 var config = { 
-    telegram_group: 'HomeSec',
+    telegram: {
+        api_key: ''
+    }
     snapshot_path:  __dirname + '/snapshots/',
     pinger: {
         interval:   5000,
         hostmap: {
-            //name : 'ipadress'
+            //name : 'ipaddress'
             
         }
+    },
+    camera: {
+        device: '/dev/video0',
+        rotate: 90,
+        title: 'HomeSec',
+        subtitle: 'Hallway#1',
+        timestamp: '%Y-%m-%d %H:%M:%S (%Z)'
     }
 };
 
