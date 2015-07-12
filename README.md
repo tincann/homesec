@@ -1,4 +1,4 @@
-# homesec
+# HomeSec
 Home security system running on a raspberry pi.
 
 Configuration:
