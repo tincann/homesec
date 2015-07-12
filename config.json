@@ -1,11 +1,12 @@
 { 
     "telegram": {
-        "api_key": ""
+        "api_key": "",
+        "group_id": 0
     },
     "snapshot_path": "snapshots/",
     "pinger": {
         "interval":   5000,
-        "hostmap": {       
+        "hostmap": {
         }
     },
     "camera": {
@@ -14,5 +15,8 @@
         "title": "HomeSec",
         "subtitle": "Hallway#1",
         "timestamp": "%Y-%m-%d %H:%M:%S (%Z)"
+    },
+    "doorsensor": {
+        "pin_number": 4
     }
 }
