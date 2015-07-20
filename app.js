@@ -17,6 +17,8 @@ monitor.start();
 var locationTracker = new LocationTracker(TelegramMQ, pinger, tts);
 locationTracker.start();
 
+TelegramMQ.send({ type: 'message', text: 'Starting homesec.' });
+
 //Start with a test
 setTimeout(function(){
   doorSensor.emit('open');
